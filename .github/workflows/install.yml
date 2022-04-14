@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        registry: ["https://npm.pkg.github.com"]
+        registry: ["https://npm.pkg.github.com", "https://npm.pkg.github.com/github-packages-examples"]
 
     steps:
       - uses: actions/setup-node@v1
