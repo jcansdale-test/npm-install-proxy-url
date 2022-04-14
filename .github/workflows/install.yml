@@ -4,26 +4,20 @@ env:
   TARGET_PACKAGE: "@github-packages-examples/npm-publish"
 
 jobs:
-  checkout-and-install:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Execute package
-        run: node .
 
   create-and-install:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        registry: ["https://npm.pkg.github.com"]
 
     steps:
       - uses: actions/setup-node@v1
         with:
           scope: github-packages-examples
-          registry-url: https://npm.pkg.github.com
+          registry-url: ${{ matrix.registry }}
 
       - name: Create a package called @${{ github.repository }}
         run: npm init --scope ${{ github.repository_owner }} -y
