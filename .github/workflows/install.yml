@@ -11,13 +11,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        registry: ["https://npm.pkg.github.com", "https://npm.pkg.github.com/github-packages-examples"]
+        registry: ["@github-packages-examples:registry=https://npm.pkg.github.com", "registry=https://npm.pkg.github.com/github-packages-examples"]
 
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          scope: github-packages-examples
-          registry-url: ${{ matrix.registry }}
+      - run: |
+          echo '//npm.pkg.github.com/:_authToken=${{ github.token }}
+          ${{ matrix.registry }}' > .npmrc
 
       - name: Create a package called @${{ github.repository }}
         run: npm init --scope ${{ github.repository_owner }} -y
