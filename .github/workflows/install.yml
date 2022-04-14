@@ -31,5 +31,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
+      - name: Install an unscoped package
+        run: npm install ping
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+
       - name: Execute package
         run: npx .
